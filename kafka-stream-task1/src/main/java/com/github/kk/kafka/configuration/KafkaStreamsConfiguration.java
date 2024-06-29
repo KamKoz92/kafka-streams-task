@@ -42,7 +42,7 @@ public class KafkaStreamsConfiguration {
     }
 
     private static KeyValueMapper<Integer, String, KeyValue<Integer, String>> processRecord() {
-        return (key, value) -> new KeyValue<>(key, value + "test2");
+        return (key, value) -> new KeyValue<>(key, value + ".Added some value.");
     }
 
     @Bean

@@ -18,6 +18,7 @@
 
   <modules>
     <module>kafka-stream-task1</module>
+    <module>kafka-stream-task2</module>
   </modules>
 
   <dependencies>
