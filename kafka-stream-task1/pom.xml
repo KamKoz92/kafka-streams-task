@@ -114,7 +114,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.github.kk.kafka.Application3</mainClass>
+                            <mainClass>com.github.kk.kafka.Application4</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -127,7 +127,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.kk.kafka.Application3</mainClass>
+                            <mainClass>com.github.kk.kafka.Application4</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

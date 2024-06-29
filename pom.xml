@@ -20,6 +20,7 @@
     <module>kafka-stream-task1</module>
     <module>kafka-stream-task2</module>
     <module>kafka-stream-task3</module>
+    <module>kafka-stream-task4</module>
   </modules>
 
   <dependencies>

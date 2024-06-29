@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.kk.mom</groupId>
-    <artifactId>kafka-stream-task3</artifactId>
+    <artifactId>kafka-stream-task4</artifactId>
 
     <properties>
         <spring.version>3.3.1</spring.version>
