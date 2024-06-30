@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.kk.kafka.model.Developer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KStream;
@@ -32,14 +31,15 @@ public class KafkaStreamsConfiguration {
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public org.springframework.kafka.config.KafkaStreamsConfiguration kStreamsConfigs() {
-        org.springframework.kafka.config.KafkaStreamsConfiguration testStreams = new org.springframework.kafka.config.KafkaStreamsConfiguration(Map.of(
-                APPLICATION_ID_CONFIG, "testStreams",
-                BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
-                DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Integer().getClass().getName(),
-                DEFAULT_VALUE_SERDE_CLASS_CONFIG, CustomSerde.class.getName(),
-                DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG, WallclockTimestampExtractor.class.getName()
-        ));
-        return testStreams;
+        org.springframework.kafka.config.KafkaStreamsConfiguration configuration = new org.springframework.kafka.config.KafkaStreamsConfiguration(
+                Map.of(
+                        APPLICATION_ID_CONFIG, "testStreams",
+                        BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
+                        DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Integer().getClass().getName(),
+                        DEFAULT_VALUE_SERDE_CLASS_CONFIG, CustomSerde.class.getName(),
+                        DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG, WallclockTimestampExtractor.class.getName()
+                ));
+        return configuration;
     }
 
     @Bean
@@ -47,16 +47,9 @@ public class KafkaStreamsConfiguration {
         return new CustomSerde();
     }
 
-    public static class CustomSerde extends Serdes.WrapperSerde<Developer> {
-        public CustomSerde() {
-            super(new DeveloperSerializer(), new DeveloperDeserializer());
-        }
-    }
-
     @Bean
     public KStream<Long, Developer> myFirstStream(StreamsBuilder kStreamBuilder) {
         KStream<Long, Developer> stream = kStreamBuilder.stream("task4");
-
         stream.filter((k, v) -> Objects.nonNull(v))
                 .foreach((k, v) -> {
                     try {
@@ -77,4 +70,9 @@ public class KafkaStreamsConfiguration {
                 .build();
     }
 
+    public static class CustomSerde extends Serdes.WrapperSerde<Developer> {
+        public CustomSerde() {
+            super(new DeveloperSerializer(), new DeveloperDeserializer());
+        }
+    }
 }
